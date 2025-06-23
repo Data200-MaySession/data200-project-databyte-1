@@ -172,3 +172,21 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Virtual environment
+env/
+
+# Jupyter Notebooks
+*.ipynb
+
+# System files
+.DS_Store
+
+# Archives
+archive.zip
+
+# VSCode settings (optional)
+.vscode/
+
+# Other
+*.log
