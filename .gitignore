@@ -190,3 +190,5 @@ archive.zip
 
 # Other
 *.log
+
+models/mlm_model.joblib
