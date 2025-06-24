@@ -36,6 +36,8 @@ def load_and_prepare_data():
         return clean
     df.columns = [clean_column_name(col) for col in df.columns]
 
+    print("Columns after cleaning:", df.columns.tolist())
+
     # Features and target
     feature_cols = [col for col in df.columns if col not in ['Country', 'Total_Cost_USD']]
     X = df[feature_cols]
@@ -47,9 +49,19 @@ def load_and_prepare_data():
         'Rent_USD', 'Insurance_USD', 'Visa_Fee_USD'
     ]
     numeric_features = [col for col in numeric_features if col in X.columns]
+    print("Numeric features to scale:", numeric_features)
+    print("Dtypes before scaling:\n", X[numeric_features].dtypes)
+    # Convert to numeric, coerce errors to NaN
+    X[numeric_features] = X[numeric_features].apply(pd.to_numeric, errors='coerce')
+    print("Non-numeric values in numeric_features (should be 0):\n", X[numeric_features].isnull().sum())
     scaler = StandardScaler()
     if numeric_features:
         X[numeric_features] = scaler.fit_transform(X[numeric_features])
+
+    print(df.columns.tolist())
+    print(df.head())
+    print(numeric_features)
+    print(X[numeric_features].head())
 
     return X, y, scaler, feature_cols
 
@@ -61,6 +73,18 @@ if __name__ == "__main__":
     print("\nFirst few rows:")
     print(X.head())
 
+    # Example values for demonstration
+    uni = "Example University"
+    city_sel = "Example City"
+    program = "Example Program"
+    level = "Bachelor"
+    country = "Example Country"
+    duration = 4
+    total_cost = 50000
+    default_uni_city = "Example University"
+    default_city = "Example City"
+    options = ["Example University, Example City"]  # Example options list
+
     # Plotting example
     fig, ax = plt.subplots()
     full_title = (
@@ -69,6 +93,37 @@ if __name__ == "__main__":
         f"Duration: {duration} years | Total Cost: ${total_cost:,.0f}"
     )
     ax.set_title(full_title, fontsize=16, pad=30)
+
+    if default_uni_city and default_city:
+        default_option = f"{default_uni_city}, {default_city}"
+        options_list = list(options)
+        if default_option in options_list:
+            default_index = int(options_list.index(default_option))
+        else:
+            default_index = 0
+    else:
+        default_index = 0
+
+    tuition = float(tuition)
+    duration = float(duration)
+    total_tuition = tuition * duration
+
+    total_tuition = float(total_tuition)
+    total_cost = float(total_cost)
+
+    if default_uni_city and default_city:
+        default_option = f"{default_uni_city}, {default_city}"
+        options_list = list(options)
+        if default_option in options_list:
+            default_index = int(options_list.index(default_option))
+        else:
+            default_index = 0
+    else:
+        default_index = 0
+
+    rent = float(df.loc[0, 'Rent_USD'])
+    annual_housing = rent * 12
+    total_housing = annual_housing * duration
 
     if default_uni_city and default_city:
         default_option = f"{default_uni_city}, {default_city}"

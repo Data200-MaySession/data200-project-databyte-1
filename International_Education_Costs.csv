@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Country,City,University,Program,Level,Duration_Years,Tuition_USD,Living_Cost_Index,Rent_USD,Visa_Fee_USD,Insurance_USD,Exchange_Rate
 USA,Cambridge,Harvard University,Computer Science,Master,2,55400,83.5,2200,160,1500,1.00
 UK,London,Imperial College London,Data Science,Master,1,41200,75.8,1800,485,800,0.79
@@ -1816,4 +1815,4 @@ Malaysia,Nilai,USIM,Computer Science,Bachelor,3,6800,50.5,400,120,400,4.65
 Saudi Arabia,Al-Ahsa,King Faisal University,Information Systems,Master,2,4200,64.2,600,200,800,3.75
 USA,Seattle,University of Washington,Software Development,PhD,5,50000,77.8,2000,160,1500,1.00
 UK,Nottingham,University of Nottingham,Data Engineering,Master,2,34000,61.2,800,485,800,0.79
->>>>>>> 3efced5 (Final stages)
+

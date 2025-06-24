@@ -57,16 +57,16 @@ def main():
 
     # --- User Inputs ---
     # 1. Country
-    countries = sorted(df['Country'].unique())
-    country = st.selectbox("Select Country", countries)
+    countries = sorted([c for c in df['Country'].dropna().unique() if str(c).strip() not in ["", "====", "NA", "NaN"]])
+    country = st.selectbox("Select Country", countries, index=0)
 
     # 2. Level (filtered by country)
-    levels = sorted(df[df['Country'] == country]['Level'].unique())
-    level = st.selectbox("Select Degree Level", levels)
+    levels = sorted([l for l in df[df['Country'] == country]['Level'].dropna().unique() if str(l).strip() not in ["", "====", "NA", "NaN"]])
+    level = st.selectbox("Select Degree Level", levels, index=0)
 
     # 3. Major/Program (filtered by country and level)
-    programs = sorted(df[(df['Country'] == country) & (df['Level'] == level)]['Program'].unique())
-    program = st.selectbox("Select Major/Program", programs)
+    programs = sorted([p for p in df[(df['Country'] == country) & (df['Level'] == level)]['Program'].dropna().unique() if str(p).strip() not in ["", "====", "NA", "NaN"]])
+    program = st.selectbox("Select Major/Program", programs, index=0)
 
     # --- Filtered Data ---
     filtered = df[(df['Country'] == country) & (df['Level'] == level) & (df['Program'] == program)]
@@ -138,11 +138,11 @@ def main():
         uni, city_sel = selected.split(", ")
         row = display_df[(display_df['University'] == uni) & (display_df['City'] == city_sel)].iloc[0]
         with st.expander(f"Cost breakdown for {uni}, {city_sel}"):
-            duration = row['Duration_Years']
-            tuition = row['Tuition_USD']
-            rent = row['Rent_USD']
-            insurance = row['Insurance_USD']
-            visa = row['Visa_Fee_USD']
+            duration = float(pd.to_numeric(row['Duration_Years'], errors='coerce'))
+            tuition = float(pd.to_numeric(row['Tuition_USD'], errors='coerce'))
+            rent = float(pd.to_numeric(row['Rent_USD'], errors='coerce'))
+            insurance = float(pd.to_numeric(row['Insurance_USD'], errors='coerce'))
+            visa = float(pd.to_numeric(row['Visa_Fee_USD'], errors='coerce'))
             annual_housing = rent * 12
             total_tuition = tuition * duration
             total_housing = annual_housing * duration

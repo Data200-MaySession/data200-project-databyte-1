@@ -54,11 +54,11 @@ def main():
     uni, city_sel = selected.split(", ")
     row = filtered[(filtered['University'] == uni) & (filtered['City'] == city_sel)].iloc[0]
     # Pie chart data
-    duration = row['Duration_Years']
-    tuition = row['Tuition_USD'] * duration
-    rent = row['Rent_USD'] * 12 * duration
-    insurance = row['Insurance_USD'] * duration
-    visa = row['Visa_Fee_USD']
+    duration = float(pd.to_numeric(row['Duration_Years'], errors='coerce'))
+    tuition = float(pd.to_numeric(row['Tuition_USD'], errors='coerce')) * duration
+    rent = float(pd.to_numeric(row['Rent_USD'], errors='coerce')) * 12 * duration
+    insurance = float(pd.to_numeric(row['Insurance_USD'], errors='coerce')) * duration
+    visa = float(pd.to_numeric(row['Visa_Fee_USD'], errors='coerce'))
     labels = ['Tuition', 'Housing (Rent)', 'Insurance']
     values = [tuition, rent, insurance]
     total_cost = tuition + rent + insurance + visa
